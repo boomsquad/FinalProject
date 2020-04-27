@@ -5,7 +5,7 @@ class PayStub
     public static void main(String[] args)
     {
         System.out.println("Starting PayStub...");
-        JFrame myFrame = new JFrame();
+        PayStubFrame myFrame = new PayStubFrame();
         myFrame.setVisible(true);
     }
 }
