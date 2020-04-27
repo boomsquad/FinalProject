@@ -3,10 +3,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-<<<<<<< HEAD
-=======
 import javax.swing.JLabel;
->>>>>>> 153757888c68687cee597c7157bdc7c06205de04
 import javax.swing.JTextField;
 
 import javax.swing.JMenuBar;
@@ -29,11 +26,6 @@ class PayStubFrame extends JFrame implements ActionListener
     JTextField wageField;
     JPanel myPanel;
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 153757888c68687cee597c7157bdc7c06205de04
     public PayStubFrame()
     {
         setTitle("PayStub Calculator");
@@ -42,12 +34,7 @@ class PayStubFrame extends JFrame implements ActionListener
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-<<<<<<< HEAD
         //Buttons at the bottom on screen.
-        JPanel buttonPanelSouth = new JPanel();
-        contentPane.add(buttonPanelSouth, BorderLayout.SOUTH);
-
-=======
         JPanel buttonPanel = new JPanel();
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
         
@@ -55,26 +42,17 @@ class PayStubFrame extends JFrame implements ActionListener
         buttonPanel.add(clearButton);
         clearButton.addActionListener(this);
         
->>>>>>> 153757888c68687cee597c7157bdc7c06205de04
         JButton calculateButton = new JButton("Calculate");        
-        buttonPanelSouth.add(calculateButton);
+        buttonPanel.add(calculateButton);
         calculateButton.addActionListener(this);
 
-<<<<<<< HEAD
-        JButton clearButton = new JButton("Clear");
-        buttonPanelSouth.add(clearButton);
-        clearButton.addActionListener(this);
 
-
-=======
->>>>>>> 153757888c68687cee597c7157bdc7c06205de04
         myPanel = new JPanel();
         contentPane.add(myPanel, BorderLayout.CENTER);
         myPanel.add(new JLabel("Number of employees: "));
 
         employeeAmtField = new JTextField(3);
         myPanel.add(employeeAmtField);
-<<<<<<< HEAD
 
 
         //Creates a menu bar at the top.
@@ -116,23 +94,12 @@ class PayStubFrame extends JFrame implements ActionListener
         optionsMenu.add(helpItem);
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        System.out.println("Action performed!");
-        int amtOfEmp = Integer.parseInt(employeeAmtField.getText());
-        System.out.println("Amount of employee: " + amtOfEmp);
-        for (int i = 1; i <= amtOfEmp; i++) 
-        {
-=======
-        
-    }
-
     public void actionPerformed(ActionEvent e) {
         System.out.println("Action performed!");
         int amtOfEmp = Integer.parseInt(employeeAmtField.getText());
         System.out.println("Amount of employee: " + amtOfEmp);
         for (int i = 1; i <= amtOfEmp; i++) {
->>>>>>> 153757888c68687cee597c7157bdc7c06205de04
+
             myPanel.add(new JLabel("Employee: "));
             empField = new JTextField(10);
             myPanel.add(empField);
