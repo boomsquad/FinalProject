@@ -3,17 +3,16 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Container;
 
 import java.awt.event.ActionListener;
@@ -24,6 +23,7 @@ class PayStubFrame extends JFrame implements ActionListener
     JTextField employeeAmtField;
     JTextField empField;
     JTextField wageField;
+    JTextField hours;
     JPanel myPanel;
 
     public PayStubFrame()
@@ -38,17 +38,50 @@ class PayStubFrame extends JFrame implements ActionListener
         JPanel buttonPanel = new JPanel();
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
         
-        JButton clearButton = new JButton("Clear");
-        buttonPanel.add(clearButton);
-        clearButton.addActionListener(this);
-        
+        JButton nextButton = new JButton("Next");
+        buttonPanel.add(nextButton);
+        nextButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                System.out.println("Action performed!");
+                int amtOfEmp = Integer.parseInt(employeeAmtField.getText());
+                System.out.println("Amount of employee: " + amtOfEmp);
+                for (int i = 1; i <= amtOfEmp; i++) 
+                {
+                    myPanel.add(new JLabel("Employee: "));
+                    empField = new JTextField(10);
+                    myPanel.add(empField);
+                    myPanel.add(new JLabel("Hourly wage: "));
+                    wageField = new JTextField(3);
+                    myPanel.add(wageField);
+                    myPanel.add(new JLabel("Hours worked: "));
+                    hours = new JTextField(3);
+                    myPanel.add(hours);
+                    myPanel.revalidate();
+                }   
+            }
+        });
+        nextButton.addActionListener(this);
+
         JButton calculateButton = new JButton("Calculate");        
         buttonPanel.add(calculateButton);
         calculateButton.addActionListener(this);
 
+        JButton clearButton = new JButton("Clear");
+        buttonPanel.add(clearButton);
+        clearButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                repaint();
+            }
+        });
+        clearButton.addActionListener(this);
+
 
         myPanel = new JPanel();
-        contentPane.add(myPanel, BorderLayout.CENTER);
+        contentPane.add(myPanel, BorderLayout.WEST);
         myPanel.add(new JLabel("Number of employees: "));
 
         employeeAmtField = new JTextField(3);
@@ -70,7 +103,6 @@ class PayStubFrame extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e) 
             {
                 
-                repaint();
             }
         }); 
         fileMenu.add(newItem);
@@ -91,23 +123,18 @@ class PayStubFrame extends JFrame implements ActionListener
         menuBar.add(optionsMenu);
 
         JMenuItem helpItem = new JMenuItem("Help", KeyEvent.VK_X);
+        helpItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JOptionPane.showMessageDialog(helpItem,"This application takes the amount employees with their wage and hours and calculates their pay by weekly, biweekly, or salary!");
+            }
+        });
         optionsMenu.add(helpItem);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Action performed!");
-        int amtOfEmp = Integer.parseInt(employeeAmtField.getText());
-        System.out.println("Amount of employee: " + amtOfEmp);
-        for (int i = 1; i <= amtOfEmp; i++) {
-
-            myPanel.add(new JLabel("Employee: "));
-            empField = new JTextField(10);
-            myPanel.add(empField);
-            myPanel.add(new JLabel("Hourly wage: "));
-            wageField = new JTextField(3);
-            myPanel.add(wageField);
-            myPanel.revalidate();
-        }
+    public void actionPerformed(ActionEvent e) 
+    {
         repaint();
     }
 }
