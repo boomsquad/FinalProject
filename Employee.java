@@ -33,7 +33,7 @@ class Employee
         wage = wageIn;
     }
 
-    public String toString() {
+    public String toString() { //overriding toString method
         payBeforeTax = hours*wage;
         payAfterTax = payBeforeTax*.9505; // adjusting for Illinois income tax
         return name + ": " + "Hours worked: " + hours + ", Hourly wage: " + wage + ", Pay before tax: " + payBeforeTax + ", Pay after tax: " + payAfterTax;

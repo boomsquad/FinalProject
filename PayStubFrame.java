@@ -29,7 +29,11 @@ class PayStubFrame extends JFrame implements ActionListener
     JPanel myPanel;
     int amtOfEmp;
     Employee newEmp;
+    // we are going to need ArrayLists to keep track of the fields that will be added
     ArrayList<Employee> empList = new ArrayList<Employee>();
+    ArrayList<JTextField> empFieldList = new ArrayList<JTextField>();
+    ArrayList<JTextField> empWageList = new ArrayList<JTextField>();
+    ArrayList<JTextField> empHoursList = new ArrayList<JTextField>();
 
     public PayStubFrame()
     {
@@ -49,22 +53,26 @@ class PayStubFrame extends JFrame implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Action performed!");
                 amtOfEmp = Integer.parseInt(employeeAmtField.getText());
                 System.out.println("Amount of employees: " + amtOfEmp);
-                for (int i = 1; i <= amtOfEmp; i++) 
+                for (int i = 0; i < amtOfEmp; i++) 
                 {
                     myPanel.add(new JLabel("Employee: "));
                     empField = new JTextField(10);
+                    empFieldList.add(empField); // add to the arrayList of empFields
                     myPanel.add(empField);
+
                     myPanel.add(new JLabel("Hourly wage: "));
                     wageField = new JTextField(3);
+                    empWageList.add(wageField); // add to the arraylist of wageFields
                     myPanel.add(wageField);
+
                     myPanel.add(new JLabel("Hours worked: "));
                     hours = new JTextField(3);
+                    empHoursList.add(hours); // add to the arrayList of hourFields
                     myPanel.add(hours);
-                    myPanel.revalidate();
-                }   
+                }
+                myPanel.revalidate();
             }
         });
         nextButton.addActionListener(this);
@@ -73,16 +81,19 @@ class PayStubFrame extends JFrame implements ActionListener
         buttonPanel.add(calculateButton);
         calculateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-                String empName = empField.getText();
-                int hoursWorked = Integer.parseInt(hours.getText());
-                int wage = Integer.parseInt(wageField.getText());
-                for (int i = 1; i <= amtOfEmp; i++) {
-                    newEmp = new Employee(empName, hoursWorked, wage); // getting the employee info and adding them to a new employee object
-                    empList.add(newEmp); // adding employee to arraylist
-                }
-                for (Employee eIterator : empList) {
+                if (empFieldList.size()==0){
+                    System.out.println("There is no employee info input!");
+                } else {
+                    for (int i = 0 ; i < amtOfEmp; i++) {
+                        String empName = empFieldList.get(i).getText();
+                        int hoursWorked = Integer.parseInt(empHoursList.get(i).getText());  // parse the fields for the values
+                        int wage = Integer.parseInt(empWageList.get(i).getText());
+                        newEmp = new Employee(empName, hoursWorked, wage); 
+                     empList.add(newEmp); // adding employee to arraylist of employees
+                    }
+                    for (Employee eIterator : empList) {
                     System.out.println(eIterator); // printing every employee's info in the arraylist
+                    }
                 }
             }
         });
@@ -97,6 +108,12 @@ class PayStubFrame extends JFrame implements ActionListener
                 myPanel.removeAll();
                 myPanel.add(new JLabel("Number of employees: "));
                 myPanel.add(employeeAmtField);
+                // clearing all the arraylists for a fresh start
+                empList.clear();
+                empFieldList.clear();
+                empHoursList.clear();
+                empWageList.clear();
+
             }
         });
         clearButton.addActionListener(this);
