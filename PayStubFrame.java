@@ -126,7 +126,7 @@ class PayStubFrame extends JFrame implements ActionListener
             {
                 
             }
-        }); 
+        });
         fileMenu.add(newItem);
 
         JMenuItem exitMenu = new JMenuItem("Exit", KeyEvent.VK_X);
