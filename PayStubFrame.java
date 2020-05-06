@@ -18,6 +18,8 @@ import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.util.ArrayList;
+
 class PayStubFrame extends JFrame implements ActionListener
 {
     JTextField employeeAmtField;
@@ -25,6 +27,9 @@ class PayStubFrame extends JFrame implements ActionListener
     JTextField wageField;
     JTextField hours;
     JPanel myPanel;
+    int amtOfEmp;
+    Employee newEmp;
+    ArrayList<Employee> empList = new ArrayList<Employee>();
 
     public PayStubFrame()
     {
@@ -34,7 +39,7 @@ class PayStubFrame extends JFrame implements ActionListener
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        //Buttons at the bottom on screen.
+        //Buttons at the bottom on screen
         JPanel buttonPanel = new JPanel();
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
         
@@ -45,8 +50,8 @@ class PayStubFrame extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e)
             {
                 System.out.println("Action performed!");
-                int amtOfEmp = Integer.parseInt(employeeAmtField.getText());
-                System.out.println("Amount of employee: " + amtOfEmp);
+                amtOfEmp = Integer.parseInt(employeeAmtField.getText());
+                System.out.println("Amount of employees: " + amtOfEmp);
                 for (int i = 1; i <= amtOfEmp; i++) 
                 {
                     myPanel.add(new JLabel("Employee: "));
@@ -66,7 +71,21 @@ class PayStubFrame extends JFrame implements ActionListener
 
         JButton calculateButton = new JButton("Calculate");        
         buttonPanel.add(calculateButton);
-        calculateButton.addActionListener(this);
+        calculateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+                String empName = empField.getText();
+                int hoursWorked = Integer.parseInt(hours.getText());
+                int wage = Integer.parseInt(wageField.getText());
+                for (int i = 1; i <= amtOfEmp; i++) {
+                    newEmp = new Employee(empName, hoursWorked, wage); // getting the employee info and adding them to a new employee object
+                    empList.add(newEmp); // adding employee to arraylist
+                }
+                for (Employee eIterator : empList) {
+                    System.out.println(eIterator); // printing every employee's info in the arraylist
+                }
+            }
+        });
 
         JButton clearButton = new JButton("Clear");
         buttonPanel.add(clearButton);
@@ -74,7 +93,10 @@ class PayStubFrame extends JFrame implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
-                repaint();
+                // removing all additional panels and resetting to the starting layout
+                myPanel.removeAll();
+                myPanel.add(new JLabel("Number of employees: "));
+                myPanel.add(employeeAmtField);
             }
         });
         clearButton.addActionListener(this);
