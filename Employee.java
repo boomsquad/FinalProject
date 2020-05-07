@@ -40,7 +40,7 @@ class Employee
         double roundOff = Math.round(payBeforeTax * 100.0) / 100.0;
         payAfterTax = payBeforeTax*.9505; // adjusting for Illinois income tax
         double roundOff2 = Math.round(payAfterTax * 100.0) / 100.0;
-        return name + ": " + "Hours worked: " + hours + ", Hourly wage: $" + wage + ", Pay before tax: $" + roundOff + ", Pay after tax: $" + roundOff2;
+        return name + ": " + "Hours worked: " + hours + ", Hourly wage: $" + wage + ", Pay before tax: $" + roundOff + ", Pay after tax: $" + roundOff2 + "\n";
     }
 
 }
