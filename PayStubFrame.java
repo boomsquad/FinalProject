@@ -4,21 +4,19 @@ import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.KeyEvent;
-import java.awt.GridLayout;
+import java.text.DecimalFormat;
 import java.awt.BorderLayout;
 import java.awt.Container;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.util.ArrayList;
+
 
 class PayStubFrame extends JFrame implements ActionListener
 {
@@ -38,10 +36,18 @@ class PayStubFrame extends JFrame implements ActionListener
     public PayStubFrame()
     {
         setTitle("PayStub Calculator");
-        setBounds(50,50,1000,700);
+        setBounds(50,50,1100,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+        
+        myPanel = new JPanel();
+        contentPane.add(myPanel,BorderLayout.WEST);
+        myPanel.add(new JLabel("Number of employees: "));
+
+        employeeAmtField = new JTextField(3);
+        myPanel.add(employeeAmtField);
+
 
         //Buttons at the bottom on screen
         JPanel buttonPanel = new JPanel();
@@ -79,20 +85,28 @@ class PayStubFrame extends JFrame implements ActionListener
 
         JButton calculateButton = new JButton("Calculate");        
         buttonPanel.add(calculateButton);
-        calculateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (empFieldList.size()==0){
+        calculateButton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                if (empFieldList.size() == 0)
+                {
                     System.out.println("There is no employee info input!");
-                } else {
-                    for (int i = 0 ; i < amtOfEmp; i++) {
+                } 
+                else 
+                {
+                    for (int i = 0 ; i < amtOfEmp; i++) 
+                    {
                         String empName = empFieldList.get(i).getText();
                         int hoursWorked = Integer.parseInt(empHoursList.get(i).getText());  // parse the fields for the values
                         int wage = Integer.parseInt(empWageList.get(i).getText());
                         newEmp = new Employee(empName, hoursWorked, wage); 
-                     empList.add(newEmp); // adding employee to arraylist of employees
+                        empList.add(newEmp); // adding employee to arraylist of employees
                     }
-                    for (Employee eIterator : empList) {
-                    System.out.println(eIterator); // printing every employee's info in the arraylist
+                    for (Employee eIterator : empList) 
+                    {
+                        System.out.print(eIterator); // printing every employee's info in the arraylist
+                        JOptionPane.showMessageDialog(calculateButton, eIterator);
                     }
                 }
             }
@@ -108,24 +122,17 @@ class PayStubFrame extends JFrame implements ActionListener
                 myPanel.removeAll();
                 myPanel.add(new JLabel("Number of employees: "));
                 myPanel.add(employeeAmtField);
+                employeeAmtField.setText("");
                 // clearing all the arraylists for a fresh start
                 empList.clear();
                 empFieldList.clear();
                 empHoursList.clear();
                 empWageList.clear();
 
+                revalidate();
             }
         });
         clearButton.addActionListener(this);
-
-
-        myPanel = new JPanel();
-        contentPane.add(myPanel, BorderLayout.WEST);
-        myPanel.add(new JLabel("Number of employees: "));
-
-        employeeAmtField = new JTextField(3);
-        myPanel.add(employeeAmtField);
-
 
         //Creates a menu bar at the top.
         JMenuBar menuBar = new JMenuBar();
@@ -141,7 +148,11 @@ class PayStubFrame extends JFrame implements ActionListener
         {
             public void actionPerformed(ActionEvent e) 
             {
-                
+                myPanel.removeAll();
+                myPanel.add(new JLabel("Number of employees: "));
+                myPanel.add(employeeAmtField);
+                employeeAmtField.setText("");
+                revalidate();
             }
         });
         fileMenu.add(newItem);
@@ -166,7 +177,7 @@ class PayStubFrame extends JFrame implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
-                JOptionPane.showMessageDialog(helpItem,"This application takes the amount employees with their wage and hours and calculates their pay by weekly, biweekly, or salary!");
+                JOptionPane.showMessageDialog(helpItem,"This application takes the amount employees with their wage and hours and calculates their pay for the week with and without taxes!");
             }
         });
         optionsMenu.add(helpItem);

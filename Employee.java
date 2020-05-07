@@ -1,4 +1,3 @@
-
 class Employee
 {
     private String name;
@@ -20,23 +19,28 @@ class Employee
     public void setNumEmployees(int numEmployeesIn){numEmployees = numEmployeesIn;}
     public int getNumEmployees(){return numEmployees;}
 
-    public Employee() { // constructor where nothing is passed in
+    public Employee() // constructor where nothing is passed in
+    { 
     
         name = "";
         hours = 0;
         wage = 0;
     }
 
-    public Employee(String nameIn, int hoursIn, int wageIn){ // constructor with parameters passed in
+    public Employee(String nameIn, int hoursIn, int wageIn) // constructor with parameters passed in
+    {
         name = nameIn;
         hours = hoursIn;
         wage = wageIn;
     }
 
-    public String toString() { //overriding toString method
+    public String toString() //overriding toString method
+    {
         payBeforeTax = hours*wage;
+        double roundOff = Math.round(payBeforeTax * 100.0) / 100.0;
         payAfterTax = payBeforeTax*.9505; // adjusting for Illinois income tax
-        return name + ": " + "Hours worked: " + hours + ", Hourly wage: " + wage + ", Pay before tax: " + payBeforeTax + ", Pay after tax: " + payAfterTax;
+        double roundOff2 = Math.round(payAfterTax * 100.0) / 100.0;
+        return name + ": " + "Hours worked: " + hours + ", Hourly wage: $" + wage + ", Pay before tax: $" + roundOff + ", Pay after tax: $" + roundOff2;
     }
 
 }
