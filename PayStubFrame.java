@@ -9,7 +9,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.KeyEvent;
-import java.text.DecimalFormat;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionListener;
